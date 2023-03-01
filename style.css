@@ -21,7 +21,7 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 700px;
+    /* width: 700px; */
     justify-content: center;
     align-self: center;    
 }
@@ -54,8 +54,12 @@ body {
 
 .box {
     box-sizing: border-box;
-    height: calc(700px/8);
-    width: calc(700px/8);
-    border-radius: 0.5em;
+    /* height: calc(700px/8);
+    width: calc(700px/8); */
+    /* border-radius: 0.5em; */
     background-color: rgb(233, 233, 233);
+}
+
+.box.active{
+    background-color: blueviolet;
 }
