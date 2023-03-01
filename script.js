@@ -1,38 +1,42 @@
 const valueSelector = document.querySelector("#valueSelect");
-const resetButton = document.querySelector("button");
 const valueText = document.querySelector("#gridValue");
+
 const gridHeight = document.querySelector(".grid").clientHeight;
 const gridSelect = document.querySelector(".grid");
+let gridValue = valueSelector.value;
 
-let gridValue = 8;
+const resetButton = document.querySelector("button");
 
-const boxes = document.querySelectorAll(".box");
 
-//let boxSize = (gridHeight / gridValue);
+//make the value text reflect initial value
+valueText.textContent = `${gridValue}x${gridValue}`;
 
-console.log (valueSelector);
-console.log (valueText);
-console.log (gridHeight);
-console.log (gridValue);
-//console.log (boxSize);
+//create initial set of boxes
+createBoxes(gridValue);
 
+//When value changes run functions
 valueSelector.oninput = function (){
+    //update grid value, and reflect change on text
     gridValue = valueSelector.value;
-    valueText.textContent = `${valueSelector.value}x${valueSelector.value}`;
+    valueText.textContent = `${gridValue}x${gridValue}`;
+    
+    //remove previous boxes
     removeBoxes(gridSelect);
+    
+    //create new boxes
     createBoxes(gridValue);
 };
 
 
-resetButton.addEventListener('click', function(e){
-    boxes.forEach(box => {
-        box.classList.remove('active');
-    });
-});
 
+function createBoxes (boxQuantity){
+    for (let i = 0; i < (boxQuantity*boxQuantity) ; i++){
+        createDiv(boxQuantity);
+    }
+};
 
-function createDiv (size){
-    let boxSize = (gridHeight / gridValue).toFixed(2);
+function createDiv (boxQuantity){
+    let boxSize = (gridHeight / boxQuantity);
     const box = document.createElement("div");
     box.style.height = `${boxSize}px`;
     box.style.width = `${boxSize}px`;
@@ -43,20 +47,18 @@ function createDiv (size){
     gridSelect.appendChild(box);
 };
 
-function createBoxes (boxQuantity){
-    for (let i = 0; i < (boxQuantity*boxQuantity) ; i++){
-        createDiv(boxQuantity);
-    }
-};
-
 function removeBoxes (parent){
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     };
 };
 
-boxes.forEach( box => {
-    box.addEventListener('mouseover', function (event) {
-        box.classList.add('active');
+resetButton.addEventListener('click', function(e){
+    let boxes = document.querySelectorAll(".box");
+    boxes.forEach(box => {
+        box.classList.remove('active');
     });
 });
+
+
+
